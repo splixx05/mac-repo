@@ -1,0 +1,18 @@
+[user]
+	name = splixx05
+	email = splixx05@gmail.com
+[core]
+	editor = gedit
+[merge]
+	tool = meld
+[alias]
+	co = checkout
+	br = branch
+	mm = commit
+	st = status
+[push]
+	rebase = false
+[pull]
+	rebase = false
+[init]
+	defaultBranch = 'master'
