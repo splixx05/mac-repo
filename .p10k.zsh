@@ -1,1 +1,1 @@
-/home/ricky/dotfiles/.p10k.zsh
+/home/ricky/res/repo/deb-repo/.p10k.zsh

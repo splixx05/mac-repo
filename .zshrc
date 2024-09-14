@@ -1,1 +1,1 @@
-/home/ricky/dotfiles/.zshrc
+/home/ricky/res/repo/deb-repo/.zshrc
