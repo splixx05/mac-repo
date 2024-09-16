@@ -1,0 +1,5 @@
+# nvim/plug/colors
+.config/nvim/lua/res/plugins/dracula
+.config/nvim/lua/res/plugins/nord
+.config/nvim/lua/res/plugins/tokio-night.lua
+
