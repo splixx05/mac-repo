@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-nvim/lua/res/plugins/dracula.lua
-=======
-# nvim/plug/colors
-.config/nvim/lua/res/plugins/dracula
-.config/nvim/lua/res/plugins/nord
-.config/nvim/lua/res/plugins/tokio-night.lua
-
->>>>>>> ee1091da9096c988a20a329cc7e707e34bd5e2e7
