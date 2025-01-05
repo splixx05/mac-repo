@@ -15,8 +15,7 @@ return {
 					"cssls",
 					"markdown_oxide",
 					"ts_ls",
-					"bashls",
-					-- "pylsp",
+					"pylsp",
 					-- "java_language_server",
 				},
 			})
@@ -31,9 +30,8 @@ return {
 			lspconfig.html.setup({})
 			lspconfig.cssls.setup({})
 			lspconfig.markdown_oxide.setup({})
-			-- lspconfig.pylsp.setup({})
+			lspconfig.pylsp.setup({})
 			-- lspconfig.java_language_server.setup({})
-			lspconfig.bashls.setup({})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
