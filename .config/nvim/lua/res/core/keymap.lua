@@ -3,13 +3,22 @@ vim.g.mapleader = " "
 local keymap = vim.keymap -- for conciseness
 
 -- mode
-keymap.set("i", "ei", "<ESC>", { desc = "Exit insert mode with ei" })
+keymap.set("i", "kj", "<ESC>", { desc = "Exit insert mode with jk" })
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
-keymap.set("v", "ev", "<ESC>", { desc = "Exit visual mode with ev" })
+-- keymap.set("v", "ev", "<ESC>", { desc = "Exit visual mode with ev" })
 
 -- commands (:)
 keymap.set("n", "<leader>sr", ":source", { desc = "switch to 'Explore-Mode'" })
 
+-- navigation
+keymap.set("n", "j", "h")
+keymap.set("n", "k", "j")
+keymap.set("n", "l", "k")
+keymap.set("n", "ö", "l")
+keymap.set("v", "j", "h")
+keymap.set("v", "k", "j")
+keymap.set("v", "l", "k")
+keymap.set("v", "ö", "l")
 
 -- increment/decrement numbers > do i need that?
 -- keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
@@ -26,5 +35,3 @@ keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" 
 keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
-
-
