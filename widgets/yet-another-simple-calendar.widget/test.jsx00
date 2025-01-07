@@ -1,0 +1,117 @@
+const gmeet_link_regex = /(https:\/\/meet\.google\.com\/[^\n <>"]+)/;
+// based on: https://github.com/knazarov/ubersicht-calendar-widget
+// requires ical-buddy: brew install ical-buddy
+
+// --------------- CUSTOMIZE ME ---------------
+// the following dimensions are specified in pixels
+const WIDTH = 500; // width of the widget
+const TOP = 25; // top margin
+const LEFT = 25; // left margin
+const BOTTOM = 300; // bottom margin
+const BACKGROUND_COLOR = "rgba(0, 0, 0, 0)";
+const REFRESH_FREQUENCY = 600; // widget refresh frequency in seconds
+const CALENDAR_APP = "/System/Applications/Calendar.app";
+const DEBUG_LOG = false;
+// --------------------------------------------
+
+import { run } from "uebersicht";
+
+export function command(dispatch) {
+  DEBUG_LOG && console.log("called 'command'");
+  getData(dispatch, undefined);
+}
+
+function getData(dispatch, offset) {
+  if (offset === undefined) {
+    const dateElement = document.getElementById("shown-date");
+    offset = dateElement === null ? 0 : parseInt(dateElement.dataset.offset);
+  }
+  const offsetString = offset >= 0 ? `+${offset}` : `${offset}`;
+  // construct bash command to grab today's events
+  // Refer to https://hasseg.org/icalBuddy/man.html
+  const commandString =
+    "/opt/homebrew/opt/ical-buddy/bin/icalBuddy " +
+    '-npn -nrd -b "<newevent>" -nnr "<newline>" -ps "||" ' +
+    '-iep "datetime,title,location,/* notes */" ' +
+    '-po "datetime,title,location,/* notes */" ' +
+    '-tf "%H:%M" -df "%Y-%m-%d" ' +
+    `eventsFrom:today${offsetString} to:today${offsetString}`;
+  run(commandString).then((output) =>
+    dispatch({ type: "UB/COMMAND_RAN", output }),
+  );
+}
+
+export const initialState = {
+  output: "",
+  offset: 0,
+  show_events: true,
+};
+
+// refresh frequency in milliseconds
+export const refreshFrequency = REFRESH_FREQUENCY * 1000;
+
+export const className = `
+  top: ${TOP}px;
+  left: ${LEFT}px;
+  bottom: ${BOTTOM}px;
+  width: ${WIDTH}px;
+  .calendar-widget {
+    padding-top: 5px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    background: ${BACKGROUND_COLOR};
+    backdrop-filter: blur(2px);
+    color: #FFFFFF;
+    font-family: Gayathri;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .header {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  .date-header {
+    font-size: 23px;
+    font-weight: bold;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  .button-offset {
+    color: #A9A9A9;
+    font-size: 15px;
+    user-select: none;
+  }
+  .left-margin {
+    margin-left: 7px;
+  }
+  .icon-container {
+    display: inline-block;
+    text-align: center;
+    width: 22px;
+  }
+  .event {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .event-details {
+    font-weight: bold;
+    border-left: solid 3px;
+    border-radius: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 13px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    width: ${WIDTH - 5}px;
+    left: 0px;
+  }
+  .meetingLink {
+    margin-left: 15px;
+  }
+`;
+const testString =
+  "Hier ist der Google Meet-Link: https://meet.google.com/abc-defg-hij und noch ein Text";
+const match = testString.match(gmeet_link_regex);
+console.log(match);
